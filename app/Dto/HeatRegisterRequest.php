@@ -7,20 +7,19 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class SurferCreateRequest extends FormRequest
+class HeatRegisterRequest extends FormRequest
 {
-
     public function rules() : array
     {
         return[
-            'surferName' => 'required|string',
-            'surferCountry' => 'required|string'
+            '$heatSurfer1' => 'required|int',
+            '$heatSurfer2' => 'required|int'
         ];
     }
 
     public function messages() : array
     {
-        return ResponseConstants::MESSAGES;
+        return ResponseConstants::MESSAGES_HEAT;
     }
 
     protected function failedValidation(Validator $validator)
@@ -30,13 +29,13 @@ class SurferCreateRequest extends FormRequest
         throw new HttpResponseException($response);
     }
 
-    public function surferName() : string
+    public function heatSurfer1() : int
     {
-        return $this->get('surferName');
+        return $this->get('$heatSurfer1');
     }
 
-    public function surferCountry() : string
+    public function heatSurfer2() : int
     {
-        return $this->get('surferCountry');
+        return $this->get('$heatSurfer2');
     }
 }

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Dto\SurferCreateRequest;
+use App\Dto\SurferRegisterRequest;
+use App\Exceptions\DuplicateEntryException;
+use App\Helpers\ErrorResponse;
 use App\Helpers\Response;
 use App\Services\SurferService;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 
 class SurferController extends Controller
@@ -17,22 +20,23 @@ class SurferController extends Controller
         $this->surferService = $surferService;
     }
 
-    public function getSurferById(int $id)
+    public function getSurferById(int $id): JsonResponse
     {
         $surfer = $this->surferService->getSurferById($id);
         return Response::successResponse($surfer);
     }
 
-    public function listSurfers() : JsonResponse
+    public function listSurfers(): JsonResponse
     {
         $surfers = $this->surferService->listSurfers();
         return Response::successResponse($surfers);
     }
 
-    public function createSurfer(SurferCreateRequest  $request): JsonResponse
+    public function registerSurfer(SurferRegisterRequest $request): JsonResponse
     {
         $request->validated();
-        $surfer = $this->surferService->createSurfer($request);
-        return Response::createResponse($surfer);
+        $surfer = $this->surferService->registerSurfer($request);
+        return Response::successResponse($surfer);
     }
 }
+

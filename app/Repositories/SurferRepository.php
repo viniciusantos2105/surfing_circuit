@@ -28,7 +28,7 @@ class SurferRepository implements SurferRepositoryInterface
         return $surfers;
     }
 
-    public function createSurfer(array $data) : Surfer
+    public function registerSurfer(array $data) : Surfer
     {
         DB::beginTransaction();
         $surfer = $this->model->create($data);

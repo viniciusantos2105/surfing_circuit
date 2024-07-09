@@ -2,12 +2,14 @@
 
 namespace App\Constants;
 
+use Illuminate\Http\JsonResponse;
+
 class ResponseConstants
 {
     const VALIDATION_ERROR_MESSAGE = "Seus dados de entrada contêm erros.";
     const VALIDATION_ERROR_STATUS = 422;
 
-    public static function validationErrorResponse($validator)
+    public static function validationErrorResponse($validator): JsonResponse
     {
         return response()->json([
             'message' => self::VALIDATION_ERROR_MESSAGE,
@@ -15,8 +17,13 @@ class ResponseConstants
         ], self::VALIDATION_ERROR_STATUS);
     }
 
-    const MESSAGES = [
+    const MESSAGES_SURFER = [
         'surferName.required' => 'O campo nome do surfista é obrigatório.',
         'surferCountry.required' => 'O campo país é obrigatório.',
+    ];
+
+    const MESSAGES_HEAT = [
+        'heatSurfer1.required' => 'O campo surfista 1 é obrigatório.',
+        'heatSurfer2.required' => 'O campo surfista 2 é obrigatório.'
     ];
 }

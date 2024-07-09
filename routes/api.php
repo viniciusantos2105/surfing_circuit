@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HeatController;
 use App\Http\Controllers\SurferController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,11 +18,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('surfer') -> group(function () {
     Route::get('/', [SurferController::class, 'listSurfers']);
-    Route::post('/create', [SurferController::class, 'createSurfer']);
+    Route::post('/create', [SurferController::class, 'registerSurfer']);
 });
 
-Route::prefix('api/battery') -> group(function () {
-
+Route::prefix('heat') -> group(function () {
+    Route::post('/create', [HeatController::class, 'registerHeat']);
 });
 
 Route::prefix('api/wave') -> group(function () {

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Wave extends Model
 {
@@ -12,12 +13,12 @@ class Wave extends Model
         '$waveBattery', '$waveSurfer',
     ];
 
-    public function waveBattery()
+    public function waveBattery(): BelongsTo
     {
         return $this->belongsTo(Heat::class);
     }
 
-    public function waveSurfer()
+    public function waveSurfer() : BelongsTo
     {
         return $this->belongsTo(Surfer::class);
     }
