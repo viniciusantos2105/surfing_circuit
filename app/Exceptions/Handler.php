@@ -12,6 +12,17 @@ class Handler extends ExceptionHandler
      *
      * @var array<int, class-string<Throwable>>
      */
+
+    public function render($request, Throwable $exception)
+    {
+       if($exception instanceof BaseException){
+           return $exception->returnToJson();
+       }
+
+       return parent::render($request, $exception);
+    }
+
+
     protected $dontReport = [
         //
     ];
