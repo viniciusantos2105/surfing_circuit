@@ -12,8 +12,8 @@ class HeatRegisterRequest extends FormRequest
     public function rules() : array
     {
         return[
-            '$heatSurfer1' => 'required|int',
-            '$heatSurfer2' => 'required|int'
+            'heatSurfer1' => 'required|integer',
+            'heatSurfer2' => 'required|integer'
         ];
     }
 
@@ -31,11 +31,11 @@ class HeatRegisterRequest extends FormRequest
 
     public function heatSurfer1() : int
     {
-        return $this->get('$heatSurfer1');
+        return $this->get('heatSurfer1');
     }
 
     public function heatSurfer2() : int
     {
-        return $this->get('$heatSurfer2');
+        return $this->get('heatSurfer2');
     }
 }

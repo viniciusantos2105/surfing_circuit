@@ -15,10 +15,11 @@ class SurferService
         $this->surferRepository = $surferRepository;
     }
 
-    public function getSurfer($surferId)
+
+    public function getSurfer($surferId) : array
     {
-        $surfer = $this->surferRepository->getSurferById($surferId);
-        return $surfer;
+            $surfer = $this->surferRepository->getSurferById($surferId);
+            return $surfer;
     }
 
     public function listSurfers()

@@ -18,11 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('surfer') -> group(function () {
     Route::get('/', [SurferController::class, 'listSurfers']);
-    Route::post('/create', [SurferController::class, 'registerSurfer']);
+    Route::post('/register', [SurferController::class, 'registerSurfer']);
 });
 
 Route::prefix('heat') -> group(function () {
-    Route::post('/create', [HeatController::class, 'registerHeat']);
+    Route::get('/{id}', [HeatController::class, 'getHeat']);
+    Route::post('/register', [HeatController::class, 'registerHeat']);
 });
 
 Route::prefix('api/wave') -> group(function () {

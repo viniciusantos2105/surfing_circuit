@@ -1,31 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Dto;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
-class Heat extends Model
+class HeatViewResponse
 {
-    public $timestamps = false;
-    protected $primaryKey = 'heat_id';
+    public $heatId;
+    public $heatSurfer1;
+    public $heatSurfer2;
 
-    protected $heatId;
-    protected $heatSurfer1;
-    protected $heatSurfer2;
-
-    protected $fillable = [
-         'surfer1_number', 'surfer2_number',
-    ];
-
-    public function heatSurfer1(): BelongsTo
+    public function __construct($heatId, $heatSurfer1, $heatSurfer2)
     {
-        return $this->belongsTo(Surfer::class);
-    }
-
-    public function heatSurfer2() : BelongsTo
-    {
-        return $this->belongsTo(Surfer::class);
+        $this->heatId = $heatId;
+        $this->heatSurfer1 = $heatSurfer1;
+        $this->heatSurfer2 = $heatSurfer2;
     }
 
     /**
@@ -75,7 +62,6 @@ class Heat extends Model
     {
         $this->heatSurfer2 = $heatSurfer2;
     }
-
 
 
 }
