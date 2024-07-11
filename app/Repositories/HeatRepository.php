@@ -16,6 +16,9 @@ class HeatRepository implements HeatRepositoryInterface
         $this->model = $heat;
     }
 
+    /**
+     * @throws ResourceNotFoundException
+     */
     public function getHeat(int $id) : Heat
     {
         DB::beginTransaction();

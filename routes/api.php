@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HeatController;
 use App\Http\Controllers\SurferController;
+use App\Http\Controllers\WaveController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,10 +27,14 @@ Route::prefix('heat') -> group(function () {
     Route::post('/register', [HeatController::class, 'registerHeat']);
 });
 
-Route::prefix('api/wave') -> group(function () {
-
+Route::prefix('heat')->group(function () {
+    Route::post('/{heatId}/surfer/{surferId}/wave', [WaveController::class, 'registerWave']);
 });
 
-Route::prefix('api/wave/note') -> group(function () {
+Route::prefix('wave') -> group(function () {
+    Route::get('/{id}', [WaveController::class, 'getWave']);
+});
+
+Route::prefix('wave/note') -> group(function () {
 
 });

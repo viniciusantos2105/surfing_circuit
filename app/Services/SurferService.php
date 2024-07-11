@@ -16,10 +16,9 @@ class SurferService
     }
 
 
-    public function getSurfer($surferId) : array
+    public function getSurfer($surferId): array
     {
-            $surfer = $this->surferRepository->getSurferById($surferId);
-            return $surfer;
+        return $this->surferRepository->getSurferById($surferId);
     }
 
     public function listSurfers()
@@ -27,7 +26,7 @@ class SurferService
         return $this->surferRepository->listSurfers();
     }
 
-    public function registerSurfer(SurferRegisterRequest $request) : Surfer
+    public function registerSurfer(SurferRegisterRequest $request): Surfer
     {
         $surfer = [
             'surfer_name' => $request->surferName,
