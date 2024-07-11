@@ -4,10 +4,10 @@ namespace App\Exceptions\Resource;
 
 use App\Exceptions\BaseException;
 
-class ResourceAlreadyExistis extends ResourceException
+class ResourceCannotCreateException extends ResourceException
 {
     private static $statusCode = 404;
-    private static $messageError = 'Recurso já existe';
+    private static $messageError = 'Não foi possível criar o recurso';
 
     private function __construct(?string $resource, ?string $attribute = null, ?string $justification = null)
     {
