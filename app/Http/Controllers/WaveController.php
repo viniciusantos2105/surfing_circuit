@@ -29,11 +29,8 @@ class WaveController extends Controller
 
     public function getWave(int $id) : JsonResponse
     {
-        $wave = $this->waveService->getWave($id);
-        $heat = $this->heatService->getHeat($wave['heat_id']);
-        $surfer = $this->surferService->getSurfer($wave['surfer_number']);
-        $waveResponse = new WaveViewResponse($wave->getWaveId(), $surfer, $heat['heat_id']);
-        return Response::successResponse($waveResponse);
+        $wave = $this->waveService->getWaveDetails($id);
+        return Response::successResponse($wave);
     }
 
     public function registerWave(int $heatId, int $surferId): JsonResponse
