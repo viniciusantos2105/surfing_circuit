@@ -9,10 +9,9 @@ class Heat extends Model
 {
     public $timestamps = false;
     protected $primaryKey = 'heat_id';
-
-    protected $heatId;
-    protected $heatSurfer1;
-    protected $heatSurfer2;
+    const HEAT_ID = 'heat_id';
+    const HEAT_SURFER1 = 'surfer1_number';
+    const HEAT_SURFER2 = 'surfer2_number';
 
     protected $fillable = [
          'surfer1_number', 'surfer2_number',
@@ -20,12 +19,12 @@ class Heat extends Model
 
     public function heatSurfer1(): BelongsTo
     {
-        return $this->belongsTo(Surfer::class);
+        return $this->belongsTo(Surfer::class, self::HEAT_SURFER1, 'surfer_number');
     }
 
     public function heatSurfer2() : BelongsTo
     {
-        return $this->belongsTo(Surfer::class);
+        return $this->belongsTo(Surfer::class, self::HEAT_SURFER2, 'surfer_number');
     }
 
     /**
@@ -33,15 +32,7 @@ class Heat extends Model
      */
     public function getHeatId()
     {
-        return $this->heatId;
-    }
-
-    /**
-     * @param mixed $heatId
-     */
-    public function setHeatId($heatId): void
-    {
-        $this->heatId = $heatId;
+        return $this->getAttribute(self::HEAT_ID);
     }
 
     /**
@@ -49,15 +40,7 @@ class Heat extends Model
      */
     public function getHeatSurfer1()
     {
-        return $this->heatSurfer1;
-    }
-
-    /**
-     * @param mixed $heatSurfer1
-     */
-    public function setHeatSurfer1($heatSurfer1): void
-    {
-        $this->heatSurfer1 = $heatSurfer1;
+        return $this->getAttribute(self::HEAT_SURFER1);
     }
 
     /**
@@ -65,15 +48,7 @@ class Heat extends Model
      */
     public function getHeatSurfer2()
     {
-        return $this->heatSurfer2;
-    }
-
-    /**
-     * @param mixed $heatSurfer2
-     */
-    public function setHeatSurfer2($heatSurfer2): void
-    {
-        $this->heatSurfer2 = $heatSurfer2;
+        return $this->getAttribute(self::HEAT_SURFER2);
     }
 
 

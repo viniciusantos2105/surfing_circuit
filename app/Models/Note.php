@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
-   protected $noteId;
-   protected $noteWave;
-   protected $partialScore1;
+    protected $noteId;
+    protected $noteWave;
+    protected $partialScore1;
     protected $partialScore2;
     protected $partialScore3;
 

@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Surfer extends Model
 {
     public $timestamps = false;
-    protected $primaryKey = 'surfer_number';
-    protected $surferNumber;
-    protected $surferName;
-    protected $surferCountry;
+    protected $primaryKey = self::SURFER_NUMBER;
+    const SURFER_NUMBER = 'surfer_number';
+    const SURFER_NAME = 'surfer_name';
+    const SURFER_COUNTRY = 'surfer_country';
 
     protected $fillable = [
         'surfer_name', 'surfer_country',
@@ -21,15 +21,7 @@ class Surfer extends Model
      */
     public function getSurferNumber()
     {
-        return $this->surferNumber;
-    }
-
-    /**
-     * @param mixed $surferNumber
-     */
-    public function setSurferNumber($surferNumber): void
-    {
-        $this->surferNumber = $surferNumber;
+        return $this->getAttribute(self::SURFER_NUMBER);
     }
 
     /**
@@ -37,15 +29,7 @@ class Surfer extends Model
      */
     public function getSurferName()
     {
-        return $this->surferName;
-    }
-
-    /**
-     * @param mixed $surferName
-     */
-    public function setSurferName($surferName): void
-    {
-        $this->surferName = $surferName;
+        return $this->getAttribute(self::SURFER_NAME);
     }
 
     /**
@@ -53,16 +37,9 @@ class Surfer extends Model
      */
     public function getSurferCountry()
     {
-        return $this->surferCountry;
+        return $this->getAttribute(self::SURFER_COUNTRY);
     }
 
-    /**
-     * @param mixed $surferCountry
-     */
-    public function setSurferCountry($surferCountry): void
-    {
-        $this->surferCountry = $surferCountry;
-    }
 
 
 }

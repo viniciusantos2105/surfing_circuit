@@ -11,8 +11,10 @@ class Wave extends Model
     /**
      * @var mixed
      */
-    protected $primaryKey = 'wave_id';
-    protected $waveId;
+    protected $primaryKey = self::WAVE_ID;
+    const WAVE_ID = 'wave_id';
+    const WAVE_SURFER_NUMBER = 'surfer_number';
+    const WAVE_HEAT_ID = 'heat_id';
 
     protected $fillable = [
         'heat_id', 'surfer_number',
@@ -20,12 +22,12 @@ class Wave extends Model
 
     public function waveHeat(): BelongsTo
     {
-        return $this->belongsTo(Heat::class);
+        return $this->belongsTo(Heat::class, 'heat_id', 'heat_id');
     }
 
     public function waveSurfer(): BelongsTo
     {
-        return $this->belongsTo(Surfer::class);
+        return $this->belongsTo(Surfer::class, 'surfer_number', 'surfer_number');
     }
 
     /**
@@ -33,8 +35,16 @@ class Wave extends Model
      */
     public function getWaveId()
     {
-        return $this->waveId;
+        return $this->getAttribute(self::WAVE_ID);
     }
 
+    public function getWaveSurfer()
+    {
+        return $this->getAttribute(self::WAVE_SURFER_NUMBER);
+    }
 
+    public function getWaveHeat()
+    {
+        return $this->getAttribute(self::WAVE_HEAT_ID);
+    }
 }
