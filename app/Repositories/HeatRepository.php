@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Contracts\HeatRepositoryInterface;
+use App\Exceptions\Resource\ResourceCannotCreateException;
 use App\Exceptions\Resource\ResourceNotFoundException;
 use App\Models\Heat;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,7 @@ class HeatRepository implements HeatRepositoryInterface
     /**
      * @throws ResourceNotFoundException
      */
-    public function getHeat(int $id) : Heat
+    public function getHeat(int $id): Heat
     {
         DB::beginTransaction();
         $heat = $this->model->where('heat_id', $id)->first();
@@ -36,10 +37,18 @@ class HeatRepository implements HeatRepositoryInterface
         // TODO: Implement getWinnerHeat() method.
     }
 
-    public function registerHeat(array $data)
+    /**
+     * @throws ResourceCannotCreateException
+     */
+    public function registerHeat(array $data) : Heat
     {
-        DB::beginTransaction();
-        $heat = $this->model->create($data);
+        try {
+            DB::beginTransaction();
+            $heat = $this->model->create($data);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw ResourceCannotCreateException::create('Heat');
+        }
         DB::commit();
         return $heat;
     }

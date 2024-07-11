@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Contracts\SurferRepositoryInterface;
-use App\Exceptions\Resource\ResourceAlreadyExistis;
+use App\Exceptions\Resource\ResourceAlreadyExistisException;
 use App\Exceptions\Resource\ResourceNotFoundException;
 use App\Models\Surfer;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +20,7 @@ class SurferRepository implements SurferRepositoryInterface
     /**
      * @throws ResourceNotFoundException
      */
-    public function getSurferById(int $id) : array
+    public function getSurferById(int $id): Surfer
     {
         DB::beginTransaction();
         $surfer = $this->model->where('surfer_number', $id)->first();
@@ -28,7 +28,7 @@ class SurferRepository implements SurferRepositoryInterface
         if($surfer == null){
             throw ResourceNotFoundException::create('surfer', 'surfer_number', "Surfista número {$id} não encontrado");
         }
-        return $surfer ? $surfer->toArray() : [];
+        return $surfer;
     }
 
     public function listSurfers()
@@ -40,7 +40,7 @@ class SurferRepository implements SurferRepositoryInterface
     }
 
     /**
-     * @throws ResourceAlreadyExistis
+     * @throws ResourceAlreadyExistisException
      */
     public function registerSurfer(array $data): Surfer
     {
@@ -49,7 +49,7 @@ class SurferRepository implements SurferRepositoryInterface
             $surfer = $this->model->create($data);
         }catch (\Exception $e){
             DB::rollBack();
-            throw ResourceAlreadyExistis::create('surfer', 'surfer_number', 'Nome de surfista já cadastrado');
+            throw ResourceAlreadyExistisException::create('surfer', 'surfer_number', 'Nome de surfista já cadastrado');
         }
         DB::commit();
         return $surfer;

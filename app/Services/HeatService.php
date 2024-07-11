@@ -23,8 +23,8 @@ class HeatService
         $surfer2 = $this->surferService->getSurfer($request->heatSurfer2());
 
         $heatData = [
-            "surfer1_number" => $surfer1['surfer_number'],
-            "surfer2_number" => $surfer2['surfer_number'],
+            "surfer1_number" => $surfer1->getSurferNumber(),
+            "surfer2_number" => $surfer2->getSurferNumber(),
         ];
 
         return $this->heatRepository->registerHeat($heatData);

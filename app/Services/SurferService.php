@@ -16,7 +16,7 @@ class SurferService
     }
 
 
-    public function getSurfer($surferId): array
+    public function getSurfer($surferId): Surfer
     {
         return $this->surferRepository->getSurferById($surferId);
     }
