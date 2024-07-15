@@ -14,7 +14,7 @@ class Heat extends Model
     const HEAT_SURFER2 = 'surfer2_number';
 
     protected $fillable = [
-         'surfer1_number', 'surfer2_number',
+         self::HEAT_SURFER1, self::HEAT_SURFER2,
     ];
 
     public function heatSurfer1(): BelongsTo

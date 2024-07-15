@@ -13,7 +13,7 @@ class Surfer extends Model
     const SURFER_COUNTRY = 'surfer_country';
 
     protected $fillable = [
-        'surfer_name', 'surfer_country',
+        self::SURFER_NAME, self::SURFER_COUNTRY,
     ];
 
     /**

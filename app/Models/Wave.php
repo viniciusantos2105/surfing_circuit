@@ -17,7 +17,7 @@ class Wave extends Model
     const WAVE_HEAT_ID = 'heat_id';
 
     protected $fillable = [
-        'heat_id', 'surfer_number',
+        self::WAVE_HEAT_ID, self::WAVE_SURFER_NUMBER,
     ];
 
     public function waveHeat(): BelongsTo
