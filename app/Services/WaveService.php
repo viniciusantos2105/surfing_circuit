@@ -3,8 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\WaveRepositoryInterface;
-use App\Dto\SurferRegisterRequest;
-use App\Dto\WaveViewResponse;
+use App\Dto\response\WaveViewResponse;
 use App\Exceptions\Resource\ResourceInvalidException;
 use App\Models\Wave;
 
@@ -27,7 +26,7 @@ class WaveService
     }
 
 
-    public function getWaveDetails(int $id) : WaveViewResponse
+    public function getWaveDetails(int $id): WaveViewResponse
     {
         $wave = $this->getWave($id);
         $heat = $this->heatService->getHeat($wave->getWaveHeat());
@@ -38,7 +37,7 @@ class WaveService
     /**
      * @throws ResourceInvalidException
      */
-    public function registerWave(int $heatId, int $surferId) : Wave
+    public function registerWave(int $heatId, int $surferId): Wave
     {
         $heat = $this->heatService->getHeat($heatId);
         $surfer = $this->surferService->getSurfer($surferId);
@@ -55,8 +54,7 @@ class WaveService
      */
     private function verifySurferHeat($surfer, $heat)
     {
-        if($heat->getHeatSurfer1() != $surfer->getSurferNumber() && $heat->getHeatSurfer2() != $surfer->getSurferNumber())
-        {
+        if ($heat->getHeatSurfer1() != $surfer->getSurferNumber() && $heat->getHeatSurfer2() != $surfer->getSurferNumber()) {
             throw ResourceInvalidException::create('wave', 'surfer_number', 'Surfista não está na bateria selecionada');
         }
     }

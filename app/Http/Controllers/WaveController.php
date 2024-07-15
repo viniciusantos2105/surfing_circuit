@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Dto\SurferRegisterRequest;
-use App\Dto\WaveViewResponse;
 use App\Exceptions\DuplicateEntryException;
-use App\Helpers\ErrorResponse;
+use App\Exceptions\Resource\ResourceInvalidException;
 use App\Helpers\Response;
 use App\Services\HeatService;
 use App\Services\SurferService;
 use App\Services\WaveService;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 
 class WaveController extends Controller
@@ -27,12 +24,15 @@ class WaveController extends Controller
         $this->heatService = $heatService;
     }
 
-    public function getWave(int $id) : JsonResponse
+    public function getWaveDetails(int $id): JsonResponse
     {
         $wave = $this->waveService->getWaveDetails($id);
         return Response::successResponse($wave);
     }
 
+    /**
+     * @throws ResourceInvalidException
+     */
     public function registerWave(int $heatId, int $surferId): JsonResponse
     {
         $wave = $this->waveService->registerWave($heatId, $surferId);

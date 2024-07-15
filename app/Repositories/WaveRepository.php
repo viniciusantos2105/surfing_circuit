@@ -21,7 +21,7 @@ class WaveRepository implements WaveRepositoryInterface
     {
         DB::beginTransaction();
         $wave = $this->model->create($data);
-        if($wave == null){
+        if ($wave == null) {
             DB::rollBack();
         }
         DB::commit();
@@ -31,11 +31,11 @@ class WaveRepository implements WaveRepositoryInterface
     /**
      * @throws ResourceNotFoundException
      */
-    public function getWave(int $id) : Wave
+    public function getWave(int $id): Wave
     {
         DB::beginTransaction();
         $wave = $this->model->where('wave_id', $id)->first();
-        if($wave == null){
+        if ($wave == null) {
             DB::rollBack();
             throw ResourceNotFoundException::create('wave', 'wave_id', 'Onda não encontrada');
         }
