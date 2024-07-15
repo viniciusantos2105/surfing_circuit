@@ -7,6 +7,7 @@ use App\Exceptions\Resource\ResourceCannotCreateException;
 use App\Exceptions\Resource\ResourceNotFoundException;
 use App\Models\Heat;
 use Illuminate\Support\Facades\DB;
+
 class HeatRepository implements HeatRepositoryInterface
 {
 
@@ -24,7 +25,7 @@ class HeatRepository implements HeatRepositoryInterface
     {
         DB::beginTransaction();
         $heat = $this->model->where('heat_id', $id)->first();
-        if($heat == null){
+        if ($heat == null) {
             DB::rollBack();
             throw ResourceNotFoundException::create('heat', 'heat_id', 'Bateria não encontrada');
         }
@@ -40,7 +41,7 @@ class HeatRepository implements HeatRepositoryInterface
     /**
      * @throws ResourceCannotCreateException
      */
-    public function registerHeat(array $data) : Heat
+    public function registerHeat(array $data): Heat
     {
         try {
             DB::beginTransaction();
