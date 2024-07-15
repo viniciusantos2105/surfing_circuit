@@ -3,17 +3,38 @@
 namespace App\Repositories;
 
 use App\Contracts\NoteRepositoryInterface;
+use App\Exceptions\Resource\ResourceCannotCreateException;
+use App\Models\Note;
+use Illuminate\Support\Facades\DB;
 
 class NoteRepository implements NoteRepositoryInterface
 {
 
-    public function registerNote(array $data)
+    protected $model;
+
+    public function __construct(Note $note)
     {
-        // TODO: Implement registerNote() method.
+        $this->model = $note;
     }
 
-    public function getNoteByWave(int $id)
+    /**
+     * @throws ResourceCannotCreateException
+     */
+    public function registerNote(array $data): Note
     {
-        // TODO: Implement getNoteByWave() method.
+        try {
+            DB::beginTransaction();
+            $note = $this->model->create($data);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw ResourceCannotCreateException::create('Note');
+        }
+        DB::commit();
+        return $note;
+    }
+
+    public function getNoteByWave(int $id): Note
+    {
+        return $this->model->where(Note::NOTE_WAVE, $id)->first();
     }
 }
