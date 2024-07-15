@@ -14,7 +14,7 @@ class Heat extends Model
     const HEAT_SURFER2 = 'surfer2_number';
 
     protected $fillable = [
-         self::HEAT_SURFER1, self::HEAT_SURFER2,
+        self::HEAT_SURFER1, self::HEAT_SURFER2,
     ];
 
     public function heatSurfer1(): BelongsTo
@@ -22,7 +22,7 @@ class Heat extends Model
         return $this->belongsTo(Surfer::class, self::HEAT_SURFER1, 'surfer_number');
     }
 
-    public function heatSurfer2() : BelongsTo
+    public function heatSurfer2(): BelongsTo
     {
         return $this->belongsTo(Surfer::class, self::HEAT_SURFER2, 'surfer_number');
     }
@@ -50,7 +50,6 @@ class Heat extends Model
     {
         return $this->getAttribute(self::HEAT_SURFER2);
     }
-
 
 
 }

@@ -25,7 +25,7 @@ class SurferRepository implements SurferRepositoryInterface
         DB::beginTransaction();
         $surfer = $this->model->where('surfer_number', $id)->first();
         DB::commit();
-        if($surfer == null){
+        if ($surfer == null) {
             throw ResourceNotFoundException::create('surfer', 'surfer_number', "Surfista número {$id} não encontrado");
         }
         return $surfer;
@@ -45,9 +45,9 @@ class SurferRepository implements SurferRepositoryInterface
     public function registerSurfer(array $data): Surfer
     {
         DB::beginTransaction();
-        try{
+        try {
             $surfer = $this->model->create($data);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
             throw ResourceAlreadyExistisException::create('surfer', 'surfer_number', 'Nome de surfista já cadastrado');
         }

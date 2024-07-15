@@ -2,8 +2,6 @@
 
 namespace App\Exceptions\Resource;
 
-use App\Exceptions\BaseException;
-
 class ResourceInvalidException extends ResourceException
 {
     private static $statusCode = 404;

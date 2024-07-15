@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\SurferRepositoryInterface;
-use App\Dto\SurferRegisterRequest;
+use App\Dto\request\SurferRegisterRequest;
 use App\Models\Surfer;
 
 class SurferService

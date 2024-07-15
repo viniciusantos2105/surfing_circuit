@@ -9,14 +9,16 @@ abstract class BaseException extends \Exception
     protected $resource;
     protected $attribute;
     protected $justification;
+
     protected function __construct(
-        string $errorCode,
-        string $type,
-        ?string $resource,
-        ?string $attribute,
-        ?string $justification,
+        string      $errorCode,
+        string      $type,
+        ?string     $resource,
+        ?string     $attribute,
+        ?string     $justification,
         ?\Throwable $previous = null
-    ) {
+    )
+    {
         $this->type = $type;
         $this->errorCode = $errorCode;
         $this->resource = $resource;

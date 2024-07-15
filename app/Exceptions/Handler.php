@@ -15,11 +15,11 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-       if($exception instanceof BaseException){
-           return $exception->returnToJson();
-       }
+        if ($exception instanceof BaseException) {
+            return $exception->returnToJson();
+        }
 
-       return parent::render($request, $exception);
+        return parent::render($request, $exception);
     }
 
 

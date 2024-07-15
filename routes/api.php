@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\HeatController;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\SurferController;
 use App\Http\Controllers\WaveController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,24 +17,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('surfer') -> group(function () {
+Route::prefix('surfer')->group(function () {
     Route::get('/', [SurferController::class, 'listSurfers']);
     Route::post('/register', [SurferController::class, 'registerSurfer']);
 });
 
-Route::prefix('heat') -> group(function () {
-    Route::get('/{id}', [HeatController::class, 'getHeat']);
+Route::prefix('heat')->group(function () {
+    Route::get('/{id}', [HeatController::class, 'getHeatDetails']);
+    Route::get('/winner/{id}', [HeatController::class, 'getHeatWinner']);
     Route::post('/register', [HeatController::class, 'registerHeat']);
 });
 
-Route::prefix('heat')->group(function () {
-    Route::post('/{heatId}/surfer/{surferId}/wave', [WaveController::class, 'registerWave']);
+Route::prefix('wave')->group(function () {
+    Route::get('/{id}', [WaveController::class, 'getWaveDetails']);
+    Route::post('/heat/{heatId}/surfer/{surferId}', [WaveController::class, 'registerWave']);
 });
 
-Route::prefix('wave') -> group(function () {
-    Route::get('/{id}', [WaveController::class, 'getWave']);
-});
-
-Route::prefix('wave/note') -> group(function () {
-
+Route::prefix('note')->group(function () {
+    Route::get('/wave/{waveId}', [NoteController::class, 'getNoteResult']);
+    Route::post('/wave/{waveId}', [NoteController::class, 'registerNote']);
 });

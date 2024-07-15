@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 class Response
 {
 
-    public static function createResponse($data) : JsonResponse
+    public static function createResponse($data): JsonResponse
     {
         return response()->json($data, 201);
     }
@@ -17,11 +17,10 @@ class Response
         return response()->json($data, 200);
     }
 
-    public static function noContentResponse() : JsonResponse
+    public static function noContentResponse(): JsonResponse
     {
-        return response()->json( 204);
+        return response()->json(204);
     }
-
 
 
 }

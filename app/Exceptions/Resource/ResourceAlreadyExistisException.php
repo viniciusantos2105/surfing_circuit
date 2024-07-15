@@ -2,8 +2,6 @@
 
 namespace App\Exceptions\Resource;
 
-use App\Exceptions\BaseException;
-
 class ResourceAlreadyExistisException extends ResourceException
 {
     private static $statusCode = 404;
