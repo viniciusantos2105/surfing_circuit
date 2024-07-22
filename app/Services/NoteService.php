@@ -2,32 +2,31 @@
 
 namespace App\Services;
 
-use App\Contracts\NoteRepositoryInterface;
+use App\Contracts\Repositories\NoteRepositoryInterface;
+use App\Contracts\Services\NoteServiceInterface;
+use App\Contracts\Services\WaveServiceInterface;
 use App\Dto\request\NoteRegisterRequest;
 use App\Dto\response\NoteViewResponse;
+use App\Models\Wave;
 
-class NoteService
+class NoteService implements NoteServiceInterface
 {
 
     protected $noteRepository;
-    protected $waveService;
 
-    public function __construct(NoteRepositoryInterface $noteRepository, WaveService $waveService)
+    public function __construct(NoteRepositoryInterface $noteRepository)
     {
         $this->noteRepository = $noteRepository;
-        $this->waveService = $waveService;
     }
 
-    public function registerNote(int $waveId, NoteRegisterRequest $request)
+    public function registerNote(Wave $wave, NoteRegisterRequest $request)
     {
-        $wave = $this->waveService->getWave($waveId);
         $note = [
             "wave_id" => $wave->getWaveId(),
             "partialScore1" => $request->partialScore1,
             "partialScore2" => $request->partialScore2,
             "partialScore3" => $request->partialScore3,
         ];
-        error_log(print_r($note, true));
         return $this->noteRepository->registerNote($note);
     }
 

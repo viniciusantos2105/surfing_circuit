@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Contracts\NoteRepositoryInterface;
+use App\Contracts\Repositories\NoteRepositoryInterface;
 use App\Exceptions\Resource\ResourceCannotCreateException;
 use App\Models\Note;
 use Illuminate\Support\Facades\DB;
