@@ -2,28 +2,28 @@
 
 namespace App\Services;
 
-use App\Contracts\HeatRepositoryInterface;
+use App\Contracts\Repositories\HeatRepositoryInterface;
+use App\Contracts\Services\HeatServiceInterface;
+use App\Contracts\Services\SurferServiceInterface;
+use App\Contracts\Services\WaveServiceInterface;
 use App\Dto\request\HeatRegisterRequest;
 use App\Dto\response\HeatViewResponse;
+use App\Dto\response\HeatWinnerResponse;
 use App\Models\Heat;
+use App\Models\Surfer;
 
-class HeatService
+class HeatService implements HeatServiceInterface
 {
 
     protected $heatRepository;
-    protected $surferService;
 
-    public function __construct(HeatRepositoryInterface $heatRepository, SurferService $surferService)
+    public function __construct(HeatRepositoryInterface $heatRepository)
     {
         $this->heatRepository = $heatRepository;
-        $this->surferService = $surferService;
     }
 
-    public function registerHeat(HeatRegisterRequest $request): Heat
+    public function registerHeat(Surfer $surfer1, Surfer $surfer2): Heat
     {
-        $surfer1 = $this->surferService->getSurfer($request->heatSurfer1());
-        $surfer2 = $this->surferService->getSurfer($request->heatSurfer2());
-
         $heatData = [
             "surfer1_number" => $surfer1->getSurferNumber(),
             "surfer2_number" => $surfer2->getSurferNumber(),
@@ -37,16 +37,13 @@ class HeatService
         return $this->heatRepository->getHeat($id);
     }
 
-    public function getHeatDetails(int $id): HeatViewResponse
+    public function getHeatDetails(Heat $heat, Surfer $surfer1, Surfer $surfer2): HeatViewResponse
     {
-        $heat = $this->getHeat($id);
-        $surfer1 = $this->surferService->getSurfer($heat->surfer1_number);
-        $surfer2 = $this->surferService->getSurfer($heat->surfer2_number);
-        return new HeatViewResponse($heat->heat_id, $surfer1, $surfer2);
+        return new HeatViewResponse($heat->getHeatId(), $surfer1, $surfer2);
     }
 
-//    public function getWinner(int $id): HeatWinnerResponse
-//    {
-//        $heat
-//    }
+    public function getHeatWinner(Heat $heat, array $waveSurfer1, array $waveSurfer2): HeatWinnerResponse
+    {
+        return new HeatWinnerResponse($heat->getHeatId(), $heat->getHeatSurfer1(), 10);
+    }
 }

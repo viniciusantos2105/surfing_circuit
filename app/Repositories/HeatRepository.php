@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Contracts\HeatRepositoryInterface;
+use App\Contracts\Repositories\HeatRepositoryInterface;
 use App\Exceptions\Resource\ResourceCannotCreateException;
 use App\Exceptions\Resource\ResourceNotFoundException;
 use App\Models\Heat;
