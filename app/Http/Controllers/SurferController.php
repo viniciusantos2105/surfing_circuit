@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Services\SurferServiceInterface;
 use App\Dto\request\SurferRegisterRequest;
-use App\Exceptions\DuplicateEntryException;
 use App\Helpers\Response;
-use App\Services\SurferService;
 use Illuminate\Http\JsonResponse;
 
 class SurferController extends Controller
@@ -13,7 +12,7 @@ class SurferController extends Controller
 
     protected $surferService;
 
-    public function __construct(SurferService $surferService)
+    public function __construct(SurferServiceInterface $surferService)
     {
         $this->surferService = $surferService;
     }

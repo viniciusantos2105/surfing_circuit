@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Contracts\SurferRepositoryInterface;
+use App\Contracts\Repositories\SurferRepositoryInterface;
 use App\Exceptions\Resource\ResourceAlreadyExistisException;
 use App\Exceptions\Resource\ResourceNotFoundException;
 use App\Models\Surfer;

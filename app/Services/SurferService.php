@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
-use App\Contracts\SurferRepositoryInterface;
+use App\Contracts\Repositories\SurferRepositoryInterface;
+use App\Contracts\Services\SurferServiceInterface;
 use App\Dto\request\SurferRegisterRequest;
 use App\Models\Surfer;
 
-class SurferService
+class SurferService implements SurferServiceInterface
 {
     protected $surferRepository;
 
@@ -14,7 +15,6 @@ class SurferService
     {
         $this->surferRepository = $surferRepository;
     }
-
 
     public function getSurfer($surferId): Surfer
     {
