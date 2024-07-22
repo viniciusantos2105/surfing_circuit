@@ -48,9 +48,9 @@ class WaveRepository implements WaveRepositoryInterface
     {
         DB::beginTransaction();
         $wave = $this->model->where('surfer_number', $surferNumber)->where('heat_id', $heatId)->get();
-        if ($wave == null) {
+        if (count($wave->toArray()) <= 1) {
             DB::rollBack();
-            throw ResourceNotFoundException::create('wave', 'wave_id', 'Onda não encontrada');
+            throw ResourceNotFoundException::create('wave', 'wave_id', 'Quantidade de ondas surfadas é insuficientes');
         }
         DB::commit();
         return $wave->toArray();

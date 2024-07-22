@@ -4,9 +4,9 @@ namespace App\Dto\response;
 
 class HeatWinnerResponse
 {
-    protected $heatId;
-    protected $heatSurfer;
-    protected $heatScore;
+    public $heatId;
+    public $heatSurfer;
+    public $heatScore;
 
     public function __construct($heatId, $heatSurfer, $heatScore)
     {

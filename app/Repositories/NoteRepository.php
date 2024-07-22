@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Contracts\Repositories\NoteRepositoryInterface;
 use App\Exceptions\Resource\ResourceCannotCreateException;
+use App\Exceptions\Resource\ResourceNotFoundException;
 use App\Models\Note;
 use Illuminate\Support\Facades\DB;
 
@@ -33,8 +34,15 @@ class NoteRepository implements NoteRepositoryInterface
         return $note;
     }
 
+    /**
+     * @throws ResourceNotFoundException
+     */
     public function getNoteByWave(int $id): Note
     {
-        return $this->model->where(Note::NOTE_WAVE, $id)->first();
+        $note = $this->model->where(Note::NOTE_WAVE, $id)->first();
+        if($note == null) {
+            throw ResourceNotFoundException::create('note', 'wave_id', 'Nota não encontrada');
+        }
+        return $note;
     }
 }

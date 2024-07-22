@@ -36,4 +36,19 @@ class NoteService implements NoteServiceInterface
         $finalNote = ($noteWave->partialScore1 + $noteWave->partialScore2 + $noteWave->partialScore3) / 3;
         return new NoteViewResponse($noteWave->wave_id, $finalNote);
     }
+
+    public function getNoteHeat(array $wavesSurfer)
+    {
+        $notesSurfer = [];
+        foreach ($wavesSurfer as $wave) {
+            $noteResult = $this->getNoteResult($wave['wave_id']);
+            if ($noteResult instanceof NoteViewResponse) {
+                $notesSurfer[] = $noteResult->finalScore;
+            }
+        }
+
+        rsort($notesSurfer);
+        $topTwoNotes = array_slice($notesSurfer, 0, 2);
+        return array_sum($topTwoNotes) / 2;
+    }
 }

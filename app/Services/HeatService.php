@@ -4,9 +4,6 @@ namespace App\Services;
 
 use App\Contracts\Repositories\HeatRepositoryInterface;
 use App\Contracts\Services\HeatServiceInterface;
-use App\Contracts\Services\SurferServiceInterface;
-use App\Contracts\Services\WaveServiceInterface;
-use App\Dto\request\HeatRegisterRequest;
 use App\Dto\response\HeatViewResponse;
 use App\Dto\response\HeatWinnerResponse;
 use App\Models\Heat;
@@ -42,8 +39,13 @@ class HeatService implements HeatServiceInterface
         return new HeatViewResponse($heat->getHeatId(), $surfer1, $surfer2);
     }
 
-    public function getHeatWinner(Heat $heat, array $waveSurfer1, array $waveSurfer2): HeatWinnerResponse
+    public function getHeatWinner(Heat $heat, float $noteSurfer1, float $noteSurfer2): HeatWinnerResponse
     {
-        return new HeatWinnerResponse($heat->getHeatId(), $heat->getHeatSurfer1(), 10);
+        if ($noteSurfer1 > $noteSurfer2) {
+            return new HeatWinnerResponse($heat->getHeatId(), $heat->getHeatSurfer1(), $noteSurfer1);
+        } else {
+            return new HeatWinnerResponse($heat->getHeatId(), $heat->getHeatSurfer2(), $noteSurfer2);
+        }
     }
+
 }

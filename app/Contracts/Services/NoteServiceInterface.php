@@ -10,4 +10,5 @@ interface NoteServiceInterface
 {
     public function registerNote(Wave $wave, NoteRegisterRequest $request);
     public function getNoteResult(int $waveId): NoteViewResponse;
+    public function getNoteHeat(array $waveSurfer);
 }
