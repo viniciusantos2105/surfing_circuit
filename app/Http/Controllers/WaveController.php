@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\DuplicateEntryException;
+use App\Contracts\Services\HeatServiceInterface;
+use App\Contracts\Services\SurferServiceInterface;
+use App\Contracts\Services\WaveServiceInterface;
+use App\Dto\response\WaveViewResponse;
 use App\Exceptions\Resource\ResourceInvalidException;
 use App\Helpers\Response;
-use App\Services\HeatService;
-use App\Services\SurferService;
-use App\Services\WaveService;
 use Illuminate\Http\JsonResponse;
 
 class WaveController extends Controller
@@ -17,7 +17,7 @@ class WaveController extends Controller
     protected $surferService;
     protected $heatService;
 
-    public function __construct(WaveService $waveService, SurferService $surferService, HeatService $heatService)
+    public function __construct(WaveServiceInterface $waveService, SurferServiceInterface $surferService, HeatServiceInterface $heatService)
     {
         $this->waveService = $waveService;
         $this->surferService = $surferService;
@@ -26,8 +26,10 @@ class WaveController extends Controller
 
     public function getWaveDetails(int $id): JsonResponse
     {
-        $wave = $this->waveService->getWaveDetails($id);
-        return Response::successResponse($wave);
+        $wave = $this->waveService->getWave($id);
+        $heat = $this->heatService->getHeat($wave->getWaveHeat());
+        $surfer = $this->surferService->getSurfer($wave->getWaveSurfer());
+        return Response::successResponse(new WaveViewResponse($wave->getWaveId(), $surfer, $heat->getHeatId()));
     }
 
     /**
@@ -35,7 +37,9 @@ class WaveController extends Controller
      */
     public function registerWave(int $heatId, int $surferId): JsonResponse
     {
-        $wave = $this->waveService->registerWave($heatId, $surferId);
+        $heat = $this->heatService->getHeat($heatId);
+        $surfer = $this->surferService->getSurfer($surferId);
+        $wave = $this->waveService->registerWave($heat, $surfer);
         return Response::successResponse($wave);
     }
 

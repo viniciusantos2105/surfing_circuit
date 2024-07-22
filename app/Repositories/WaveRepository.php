@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Contracts\WaveRepositoryInterface;
+use App\Contracts\Repositories\WaveRepositoryInterface;
 use App\Exceptions\Resource\ResourceNotFoundException;
 use App\Models\Wave;
 use Illuminate\Support\Facades\DB;
@@ -41,6 +41,19 @@ class WaveRepository implements WaveRepositoryInterface
         }
         DB::commit();
         return $wave;
+    }
+
+
+    public function getWaveBySurferAndHeat(int $surferNumber, int $heatId): array
+    {
+        DB::beginTransaction();
+        $wave = $this->model->where('surfer_number', $surferNumber)->where('heat_id', $heatId)->get();
+        if ($wave == null) {
+            DB::rollBack();
+            throw ResourceNotFoundException::create('wave', 'wave_id', 'Onda não encontrada');
+        }
+        DB::commit();
+        return $wave->toArray();
     }
 
     public function deleteWave(int $id)

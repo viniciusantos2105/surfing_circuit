@@ -2,22 +2,24 @@
 
 namespace App\Services;
 
-use App\Contracts\WaveRepositoryInterface;
+use App\Contracts\Repositories\WaveRepositoryInterface;
+use App\Contracts\Services\HeatServiceInterface;
+use App\Contracts\Services\SurferServiceInterface;
+use App\Contracts\Services\WaveServiceInterface;
 use App\Dto\response\WaveViewResponse;
 use App\Exceptions\Resource\ResourceInvalidException;
+use App\Models\Heat;
+use App\Models\Surfer;
 use App\Models\Wave;
 
-class WaveService
+class WaveService implements WaveServiceInterface
 {
     protected $waveRepository;
-    protected $heatService;
-    protected $surferService;
 
-    public function __construct(WaveRepositoryInterface $waveRepository, HeatService $heatService, SurferService $surferService)
+
+    public function __construct(WaveRepositoryInterface $waveRepository)
     {
         $this->waveRepository = $waveRepository;
-        $this->heatService = $heatService;
-        $this->surferService = $surferService;
     }
 
     public function getWave(int $id): Wave
@@ -25,22 +27,16 @@ class WaveService
         return $this->waveRepository->getWave($id);
     }
 
-
-    public function getWaveDetails(int $id): WaveViewResponse
+    public function getWaveBySurferAndHeat(int $surferNumber, int $heatId): array
     {
-        $wave = $this->getWave($id);
-        $heat = $this->heatService->getHeat($wave->getWaveHeat());
-        $surfer = $this->surferService->getSurfer($wave->getWaveSurfer());
-        return new WaveViewResponse($wave->getWaveId(), $surfer, $heat->getHeatId());
+        return $this->waveRepository->getWaveBySurferAndHeat($surferNumber, $heatId);
     }
 
     /**
      * @throws ResourceInvalidException
      */
-    public function registerWave(int $heatId, int $surferId): Wave
+    public function registerWave(Heat $heat, Surfer $surfer): Wave
     {
-        $heat = $this->heatService->getHeat($heatId);
-        $surfer = $this->surferService->getSurfer($surferId);
         $wave = [
             "heat_id" => $heat->getHeatId(),
             "surfer_number" => $surfer->getSurferNumber(),
