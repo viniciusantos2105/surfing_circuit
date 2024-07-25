@@ -3,10 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\Repositories\WaveRepositoryInterface;
-use App\Contracts\Services\HeatServiceInterface;
-use App\Contracts\Services\SurferServiceInterface;
 use App\Contracts\Services\WaveServiceInterface;
-use App\Dto\response\WaveViewResponse;
 use App\Exceptions\Resource\ResourceInvalidException;
 use App\Models\Heat;
 use App\Models\Surfer;

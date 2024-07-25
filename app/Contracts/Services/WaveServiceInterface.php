@@ -2,9 +2,6 @@
 
 namespace App\Contracts\Services;
 
-use App\Dto\response\WaveViewResponse;
-use App\Models\Wave;
-
 interface WaveServiceInterface
 {
     public function getWave(int $id);

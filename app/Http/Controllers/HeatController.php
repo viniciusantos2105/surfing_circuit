@@ -10,7 +10,6 @@ use App\Dto\request\HeatRegisterRequest;
 use App\Dto\response\HeatWinnerResponse;
 use App\Helpers\Response;
 use Illuminate\Http\JsonResponse;
-use function Sodium\add;
 
 class HeatController extends Controller
 {

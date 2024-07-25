@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Contracts\Repositories\NoteRepositoryInterface;
 use App\Contracts\Services\NoteServiceInterface;
-use App\Contracts\Services\WaveServiceInterface;
 use App\Dto\request\NoteRegisterRequest;
 use App\Dto\response\NoteViewResponse;
 use App\Models\Wave;
