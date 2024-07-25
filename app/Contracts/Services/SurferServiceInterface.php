@@ -8,6 +8,8 @@ use App\Models\Surfer;
 interface SurferServiceInterface
 {
     public function getSurfer($surferId): Surfer;
+
     public function listSurfers();
+
     public function registerSurfer(SurferRegisterRequest $request): Surfer;
 }

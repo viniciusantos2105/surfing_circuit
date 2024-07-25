@@ -40,7 +40,7 @@ class NoteRepository implements NoteRepositoryInterface
     public function getNoteByWave(int $id): Note
     {
         $note = $this->model->where(Note::NOTE_WAVE, $id)->first();
-        if($note == null) {
+        if ($note == null) {
             throw ResourceNotFoundException::create('note', 'wave_id', 'Nota não encontrada');
         }
         return $note;
